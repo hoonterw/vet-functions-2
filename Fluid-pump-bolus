@@ -1,0 +1,8 @@
+#Fluid Pump Bolus
+#Need the volume, which is given when told, "x over y minutes"
+#Need the rate
+
+def fpb(volume, time):
+    time_calc = (60)/(time)
+    ml_per_hour = (time_calc)*(volume)
+    print("The rate is", ml_per_hour, "mL/hr")
