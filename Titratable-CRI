@@ -1,0 +1,66 @@
+# Titratable CRI
+# Here's what we need to get working for this to be viable
+# Convert micrograms to milligrams and vice versa if needed (1mg = 1000 mcg)
+# Convert minutes to hours and hours to minutes if needed (60 min = 1 hour (No shit))
+# Variables we have to work with
+    # The desired rate ((volume desired = drug weight desired/kilogram/time))
+    # Desired dose of the drug in weight/time
+    # Weight of patient
+    # Volume of the CRI we want to use
+    # Weight by volume of the drug
+# Seems like that's it for now
+# Simplify the variables once the final code is done, there's too much text. It gives the script more places to pop out errors 
+    #We're gonna have multiple "if", "then", and "and" statements for the following combinations
+    # Hours and mcg [CHECK]
+    # Hours and mg [CHECK]
+    # Minutes and mcg [CHECK]
+    # Minutes and mg [CHECK]
+
+def CRI(desired_rate, drug_dose, patient_weight, cri_volume, drug_weight_by_volume):
+    print("Assume desired rate is in the drug weight/weight/time format")
+    time = input("What is the unit of time we're using for the rate? (minutes or hours)")
+    drug_wbv = input("What is the unit of weight for the drug we're using? (mcg or mg)")
+        
+    #First up, hours and mcg
+    if time == "hours" and drug_wbv == "mcg":
+        weight_per_volume = (cri_volume)*(drug_dose) # If inputs are in correctly this works
+        amount_to_add = (weight_per_volume)/(drug_weight_by_volume) 
+        # You fucked up the varible in the previous line. You put in desired drug dosage and not the weight by volume
+        final_result = (cri_volume) - (amount_to_add) # We're in business here, it works
+
+        print("You have to add", amount_to_add, "mL of the required drug to", final_result, "mL of solution to get a CRI volume of", cri_volume, "mL")
+    
+    # This "if" is the standard statement, no edits, no changes, nothing. 
+    # DO NOT FUCK WITH THESE LINES, THIS IS YOUR BASE CODE!
+    
+    # Ok here's where things get weird, we're going for conversions of weight and time
+
+    # This one is minutes and mcg
+    elif time == "minutes" and drug_wbv == "mcg":
+        drug_dose = (drug_dose)*(60)
+        weight_per_volume = (cri_volume)*(drug_dose)
+        amount_to_add = (weight_per_volume)/(drug_weight_by_volume) 
+        final_result = (cri_volume) - (amount_to_add)
+
+        print("You have to add", amount_to_add, "mL of the required drug to", final_result, "mL of solution to get a CRI volume of", cri_volume, "mL")
+     # This combo seems to work, get some examples where we'd need this one   
+        
+    # This one is hours and mg
+    elif time == "hours" and drug_wbv == "mg":
+        weight_per_volume = (cri_volume)*(drug_dose)
+        weight_per_volume = (weight_per_volume)/(1000)
+        amount_to_add = (weight_per_volume)/(drug_weight_by_volume) 
+        final_result = (cri_volume) - (amount_to_add)
+
+        print("You have to add", amount_to_add, "mL of the required drug to", final_result, "mL of solution to get a CRI volume of", cri_volume, "mL")
+    # This combo seems to work, get some examples where we'd need this one
+    
+    # Final one is minutes and mg
+    elif time == "minutes" and drug_wbv == "mg":
+        drug_dose = (drug_dose)*(60)
+        weight_per_volume = (cri_volume)*(drug_dose)
+        weight_per_volume = (weight_per_volume)/(1000)
+        amount_to_add = (weight_per_volume)/(drug_weight_by_volume) 
+        final_result = (cri_volume) - (amount_to_add)
+
+        print("You have to add", amount_to_add, "mL of the required drug to", final_result, "mL of solution to get a CRI volume of", cri_volume, "mL")
