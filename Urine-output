@@ -1,0 +1,7 @@
+# Measured in mL/kg/hr
+# Normal is 1-2 mL/kg/hr
+
+def u_out(patient_weight,hrs_since_last_measure, amount_of_u_produced):
+    final = (amount_of_u_produced)/(hrs_since_last_measure)/(patient_weight)
+    final = round(final,2)
+    print("Urine output is,", final, "mL/kg/hr")
