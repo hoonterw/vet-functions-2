@@ -1,0 +1,31 @@
+# Here's what we need to do:
+# Select 1-2mg/kg/day of metoclopramide
+# Variables
+    # What the dosage of metoclopramide is (1 or 2)
+    # Weight of the patient
+    # Rate of the fluid in mL/hr (can update to convert later)
+    
+def meto_cri(patient_weight, fluid_rate, volume_in_bag):
+    
+    # Pick the dosage level
+    dosage = input("What is the dosage for the metoclopramide? (1 or 2 mg/kg/day)")
+    
+    if dosage == "1": # Input gets spat out as a string and not integer so keep that in mind
+        dosage = 1 # Not going to import things for conversion from str to int, so just reassign
+        drug_weight_per_day = (patient_weight)*(dosage) # Output is in mg/day
+        hours_per_bag = (volume_in_bag)/(fluid_rate) # Output is in hours/bag
+        drug_weight_per_hour = (drug_weight_per_day)/(24) # Output is in mg/hr
+        weight_per_liter = (drug_weight_per_hour)*(hours_per_bag) # Output is in mg/L
+        final = round(weight_per_liter, 2) # Rounding to 2nd decimal place
+
+        print("You'll need", final, "mg/L of metoclopramide")
+        
+    elif dosage == "2":
+        dosage = 2
+        drug_weight_per_day = (patient_weight)*(dosage)
+        hours_per_bag = (volume_in_bag)/(fluid_rate)
+        drug_weight_per_hour = (drug_weight_per_day)/(24)
+        weight_per_liter = (drug_weight_per_hour)*(hours_per_bag)
+        final = round(weight_per_liter, 2)
+        
+        print("You'll need", final, "mg/L of metoclopramide")
