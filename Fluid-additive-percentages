@@ -1,0 +1,6 @@
+def fluid_percentages(ml_left_in_bag, drug_meq, wanted_meq, drug):
+  l_to_ml = ml_left_in_bag/1000
+  meq1 = l_to_ml*wanted_meq
+  ml_final = meq1/drug_meq
+  result3 = print(ml_final, "mL is required to get", drug_meq, "mEq of", drug)
+  return(result3)
