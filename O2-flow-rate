@@ -1,0 +1,28 @@
+# Rebreathing is 50-100 L/kg/min for induction
+    # and 22-44 L/kg/min for maintenance
+# Non-rebreathing is 200-300 L/kg/min
+    # Patients less than 7 kg are on non-rebreathing
+    
+def o2_flow(patient_weight):
+    if patient_weight <= 7: # Non-rebreathing circuits for an animal less than or equal to 7 kgs
+        low_end = (patient_weight)*(200) #Low end of range (mL/min)
+        high_end = (patient_weight)*(300) #High end of range (mL/min)
+        L_low = (low_end)/(1000) #(L/min)
+        L_high = (high_end)/(1000) #(L/min)
+        print("O2 rate should be", L_low, "-", L_high, "mL/kg/hr")
+    
+    elif patient_weight > 7:
+        
+        #For induction of patient
+        low_endI = (patient_weight)*(50)
+        high_endI = (patient_weight)*(100)
+        L_lowI = (low_endI)/(1000)
+        L_highI = (high_endI)/(1000)
+        
+        #For maintenace post-induction
+        low_endM = (patient_weight)*(22) #Low end of range (mL/min)
+        high_endM = (patient_weight)*(44) #High end of range (mL/min)
+        L_lowM = (low_endM)/(1000) #(L/min)
+        L_highM = (high_endM)/(1000) #(L/min)
+        print("Induction:", L_lowI, "-", L_highI, "mL/kg/hr") 
+        print("Maintenance", L_lowM, "-", L_highM, "mL/kg/hr")
