@@ -1,0 +1,24 @@
+def rate_infusion(patient_weight, cri_dose, mg_ml, ml_hr): # Each calculation's underscore is like a /, (mg/hr, mL/hr, etc.)
+    change = input("Are we changing dosages? (Y/N)") # Simple if/else if statement if we're changing the dosage, you're still going to have to put in the orignal dose
+    # The new dose will be applied after the orignal calucation gets shot through.
+    
+    if change == "N":
+        mg_day = (patient_weight)*(cri_dose) # CHECK
+        mg_hr = (mg_day)/(24) # CHECK
+        l_hr = (1000)/(ml_hr) # CHECK
+        mg_l = (l_hr)*(mg_hr) # You did / not * here      
+        ml_of_drug = (mg_l)/(mg_ml)
+        print("We need", mg_l, "mg/L of drugs") and print("We need", ml_of_drug, "mg")
+        
+    elif change == "Y":
+        new_rate = input("What is the new rate?")
+        new_rate = int(new_rate)
+        mg_day = (patient_weight)*(cri_dose) # Run the original script to get the amount needed, then run it from there
+        mg_hr = (mg_day)/(24)
+        l_hr = (1000)/(ml_hr)
+        mg_l = (l_hr)*(mg_hr) # Good up to here
+        mg_ml = (mg_l)/(1000) # Good up to here
+        mg_hr = (mg_ml)*(new_rate) # Good up to here
+        mg_day = (mg_hr)*(24) # Good up to here
+        mg_drug_per_kg_per_day = (mg_day)/(patient_weight)
+        print("The new dosage is", mg_drug_per_kg_per_day, "mg/kg/day")
