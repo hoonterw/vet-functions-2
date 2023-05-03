@@ -1,0 +1,63 @@
+import re
+def lidocaine_cri():
+    user_input_l = input("Enter your dosage amount, mg or mcg, and minutes or hours for lidocaine: ");
+    p_weight = float(input("patient's weight"))
+    cri_time = float(input("cri time in hours"))
+            
+    number_match_l = re.search(r"\d+.\d{0,5}", user_input_l)
+            
+    l_mg_ml = 20
+            
+    if number_match_l:
+        number_l = float(number_match_l.group(0))
+        units_l = user_input_l.replace(str(number_l), "").strip()
+    
+    if "mg" in units_l or "milligrams" in units_l:
+        if "min" in units_l or "mins" in units_l or "minute" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Weight x dosage
+            l_mls_2 = (l_mls_1)*(60) # Convert to mg per hour
+            l_mls_3 = (l_mls_2)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_3)*(cri_time) # mLs of lidocaine
+            
+            four_one = (l_mls_final_ml)*(4) # How much saline added
+            four_one_total = (four_one)+(l_mls_final_ml) #Total saline/lidocaine ratio
+            mls_hr = (four_one_total)/(cri_time) # Syringe pump rate
+
+        elif "hr" in units_l or "hrs" in units_l or "hour" in units_l:
+            l_mls_1 = ((p_weight)*(number_l)) # Weight x dosage
+            l_mls_2 = (l_mls_1)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_2)*(cri_time) # mLs of lidocaine
+            
+            four_one = (l_mls_final_ml)*(4) # How much saline added
+            four_one_total = (four_one)+(l_mls_final_ml) #Total saline/lidocaine ratio
+            mls_hr = (four_one_total)/(cri_time) # Syringe pump rate
+    
+    elif "mcg" in units_l or "micrograms" in units_l:
+        if "min" in units_l or "mins" in units_l or "minute" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Weight x dosage
+            l_mls_2 = (l_mls_1)*(60) # Convert to mcg per hour
+            l_mls_3 = (l_mls_2)/(1000) # Convert to mg per hr
+            l_mls_4 = (l_mls_3)/(l_mg_ml) 
+            l_mls_final_ml = (l_mls_4)*(cri_time) # mLs of lidocaine
+            
+            four_one = (l_mls_final_ml)*(4) # How much saline added
+            four_one_total = (four_one)+(l_mls_final_ml) #Total saline/lidocaine ratio
+            mls_hr = (four_one_total)/(cri_time) # Syringe pump rate
+            
+
+        elif "hr" in units_l or "hrs" in units_l or "hour" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Weight x dosage
+            l_mls_2 = (l_mls_1)/(1000) # CConvert to mg per hour
+            l_mls_3 = (l_mls_2)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_2)*(cri_time) # mLs of lidocaine
+            
+            four_one = (l_mls_final_ml)*(4) # How much saline added
+            four_one_total = (four_one)+(l_mls_final_ml) #Total saline/lidocaine ratio
+            mls_hr = (four_one_total)/(cri_time) # Syringe pump rate
+            
+
+    print(round(l_mls_final_ml, 2), "mls lidocaine with", round(four_one, 3), "mls saline at", round(mls_hr, 3), "mls/hr")
+
+    
+result = lidocaine_cri()
+print(result)
