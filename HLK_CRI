@@ -1,0 +1,131 @@
+import re
+def hlk_cri():
+    user_input_h = input("Enter your dosage amount, mg or mcg, and minutes or hours for hydro: ");
+    user_input_l = input("Enter your dosage amount, mg or mcg, and minutes or hours for lidocaine: ");
+    user_input_k = input("Enter your dosage amount, mg or mcg, and minutes or hours for ketamine: ");
+    
+    p_weight = float(input("patient's weight"))
+    cri_time = float(input("cri time in hours"))
+    
+    number_match_h = re.search(r"\d+.\d{0,5}", user_input_h)
+    number_match_l = re.search(r"\d+.\d{0,5}", user_input_l)
+    number_match_k = re.search(r"\d+.\d{0,5}", user_input_k)
+
+    
+    h_mg_ml = 2
+    l_mg_ml = 20
+    k_mg_ml = 100
+    
+    if number_match_h:
+        number_h = float(number_match_h.group(0))
+        units_h = user_input_h.replace(str(number_h), "").strip()
+    
+    if "mg" in units_h or "milligrams" in units_h:
+        if "min" in units_h or "mins" in units_h or "minute" in units_h:
+            h_mls_1 = (p_weight)*(number_h) # Milligrams per minute
+            h_mls_2 = (h_mls_1)*(60) # Milligrams per hour
+            h_mls_3 = (h_mls_2)/(h_mg_ml)
+            h_mls_final_ml = (h_mls_3)*(cri_time) # mLs of hydro
+            h_mls_final_ml_hr = (h_mls_final_ml)/(cri_time)
+            #print(number_h, "mg", "minutes")
+        elif "hr" in units_h or "hrs" in units_h or "hour" in units_h:
+            h_mls_1 = ((p_weight)*(number_h)) # Milligrams per hour  
+            h_mls_2 = (h_mls_1)/(h_mg_ml)
+            h_mls_final_ml = (h_mls_2)*(cri_time) # mLs of hydro
+            h_mls_final_ml_hr = (h_mls_final_ml)/(cri_time)
+            #print(number_h, "mg", "hours")
+    
+    elif "mcg" in units_h or "micrograms" in units_h:
+        if "min" in units_h or "mins" in units_h or "minute" in units_h:
+            h_mls_1 = (p_weight)*(number_h) # Micrograms per minute
+            h_mls_2 = (h_mls_1)*(60) # Convert to mcg/hr
+            h_mls_3 = (h_mls_2)/(1000) # Convert to mg/hr
+            h_mls_4 = (h_mls_3)/(h_mg_ml) 
+            h_mls_final_ml = (h_mls_4)*(cri_time) # mLs of hydro
+            h_mls_final_ml_hr = (h_mls_final_ml)/(cri_time)
+            #print(number_h, "mcg", "minutes")
+        elif "hr" in units_h or "hrs" in units_h or "hour" in units_h:
+            h_mls_1 = (p_weight)*(number_h) # Micrograms per hour
+            h_mls_2 = (h_mls_1)/(h_mg_ml)
+            h_mls_final_ml = (h_mls_2)*(cri_time) # mLs of hydro 
+            h_mls_final_ml_hr = (h_mls_final_ml)/(cri_time)
+            #print(number_h, "mcg", "hours")
+
+
+    if number_match_l:
+        number_l = float(number_match_l.group(0))
+        units_l = user_input_l.replace(str(number_l), "").strip()
+    
+    if "mg" in units_l or "milligrams" in units_l:
+        if "min" in units_l or "mins" in units_l or "minute" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Milligrams per minute
+            l_mls_2 = (l_mls_1)*(60) # Milligrams per hour
+            l_mls_3 = (l_mls_2)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_3)*(cri_time) # mLs of hydro
+            l_mls_final_ml_hr = (l_mls_final_ml)/(cri_time)
+            #print(number_l, "mg", "minutes")
+        elif "hr" in units_l or "hrs" in units_l or "hour" in units_l:
+            l_mls_1 = ((p_weight)*(number_l)) # Milligrams per hour  
+            l_mls_2 = (l_mls_1)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_2)*(cri_time) # mLs of hydro
+            l_mls_final_ml_hr = (l_mls_final_ml)/(cri_time)
+            #print(number_l, "mg", "hours")
+    
+    elif "mcg" in units_l or "micrograms" in units_l:
+        if "min" in units_l or "mins" in units_l or "minute" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Micrograms per minute
+            l_mls_2 = (l_mls_1)*(60) # Convert to mcg/hr
+            l_mls_3 = (l_mls_2)/(1000) # Convert to mg/hr
+            l_mls_4 = (l_mls_3)/(l_mg_ml) 
+            l_mls_final_ml = (l_mls_4)*(cri_time) # mLs of hydro
+            l_mls_final_ml_hr = (l_mls_final_ml)/(cri_time)
+            #print(number_l, "mcg", "minutes")
+        elif "hr" in units_l or "hrs" in units_l or "hour" in units_l:
+            l_mls_1 = (p_weight)*(number_l) # Micrograms per hour
+            l_mls_2 = (l_mls_1)/(l_mg_ml)
+            l_mls_final_ml = (l_mls_2)*(cri_time) # mLs of hydro
+            l_mls_final_ml_hr = (l_mls_final_ml)/(cri_time)
+            #print(number_l, "mcg", "hours")
+            
+            
+    if number_match_k:
+        number_k = float(number_match_k.group(0))
+        units_k = user_input_k.replace(str(number_k), "").strip()
+    
+    if "mg" in units_k or "milligrams" in units_k:
+        if "min" in units_k or "mins" in units_k or "minute" in units_k:
+            k_mls_1 = (p_weight)*(number_k) # Milligrams per minute
+            k_mls_2 = (k_mls_1)*(60) # Milligrams per hour
+            k_mls_3 = (k_mls_2)/(k_mg_ml)
+            k_mls_final_ml = (k_mls_3)*(cri_time) # mLs of hydro
+            k_mls_final_ml_hr = (k_mls_final_ml)/(cri_time)
+            #print(number_k, "mg", "minutes")
+        elif "hr" in units_k or "hrs" in units_k or "hour" in units_k:
+            k_mls_1 = ((p_weight)*(number_k)) # Milligrams per hour  
+            k_mls_2 = (k_mls_1)/(k_mg_ml)
+            k_mls_final_ml = (k_mls_2)*(cri_time) # mLs of hydro
+            k_mls_final_ml_hr = (k_mls_final_ml)/(cri_time)
+            #print(number_k, "mg", "hours")
+    
+    elif "mcg" in units_k or "micrograms" in units_k:
+        if "min" in units_k or "mins" in units_k or "minute" in units_k:
+            k_mls_1 = (p_weight)*(number_k) # Micrograms per minute
+            k_mls_2 = (k_mls_1)*(60) # Convert to mcg/hr
+            k_mls_3 = (k_mls_2)/(1000) # Convert to mg/hr
+            k_mls_4 = (k_mls_3)/(k_mg_ml) 
+            k_mls_final_ml = (k_mls_4)*(cri_time) # mLs of hydro
+            k_mls_final_ml_hr = (k_mls_final_ml)/(cri_time)
+            #print(number_k, "mcg", "minutes")
+        elif "hr" in units_k or "hrs" in units_k or "hour" in units_k:
+            k_mls_1 = (p_weight)*(number_l) # Micrograms per hour
+            k_mls_2 = (k_mls_1)/(k_mg_ml)
+            k_mls_final_ml = (k_mls_2)*(cri_time) # mLs of hydro 
+            k_mls_final_ml_hr = (k_mls_final_ml)/(cri_time)
+            #print(number_k, "mcg", "hours")
+            
+    print(round(h_mls_final_ml,2), "mls hydro at", round(h_mls_final_ml_hr, 3), "mls/hr")
+    print(round(l_mls_final_ml, 2), "mls lidocaine at", round(l_mls_final_ml_hr, 3), "mls/hr")
+    print(round(k_mls_final_ml, 2), "mls ketamine at", round(k_mls_final_ml_hr, 3), "mls/hr")
+
+result = hlk_cri()
+print(result)
