@@ -56,7 +56,7 @@ def lidocaine_cri():
             mls_hr = (four_one_total)/(cri_time) # Syringe pump rate
             
 
-    print(round(l_mls_final_ml, 2), "mls lidocaine with", round(four_one, 3), "mls saline at", round(mls_hr, 3), "mls/hr")
+        print(round(l_mls_final_ml, 2), "mls lidocaine with", round(four_one, 3), "mls saline at", round(mls_hr, 3), "mls/hr")
 
     
 result = lidocaine_cri()
