@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cipher Practice</title>
+	<style>
+		.monospace {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 12pt
+		}
+		.centered {
+			text-align: center;
+		}
+		.decoded-letter {
+			color: red;
+		}
+	</style>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body onload="generate();">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="centered">
+					<h2>Crack the Code!</h2>
+				</div>
+				<hr>
+				<p>Patristocrat, unknown crib, 102 characters</p>
+				<hr>
+			</div>
+		</div>
+
+		<script>
+			var cipherText = "GAMVE MWFVJ UPRVJ SHMSL YMJVV JFVLS MHAJW VVMQV JQQMS QQJVL PBPBJ XWFPM VJXXL PJZER JXWGM VJXWX RWJVV OLFEO CHVRE MPMHV LX";
+			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			
+			function generate() {
+				var encodedText = cipherText.toUpperCase();
+				document.getElementById("encoded").innerHTML = encodedText;
+				document.getElementById("decoded").innerHTML = encodedText;
+				
+
+				// Chunk of code for generating the stats for current cipher
+				var total = 0.0;
+				var cipherStats = [];
+				
+				// Calculates the "total" letters in the cipher
+				for (var i=0; i < 26; i++) {
+					total += (encodedText.match(new RegExp(alphabet.charAt(i), 'g'))||[]).length;
+				}
+				
+				// Creates the statistics list by dividing each letter by the total letters
+				var cipherMap = document.getElementById("statisticsBox");
+				for (var i=0; i < 26; i++) {
+					cipherStats.push(100.0*(encodedText.match(new RegExp(alphabet.charAt(i), 'g'))||[]).length/total);
+				}
+				createStatMap(cipherMap, cipherStats);
+				
+				// Populates the language distribution table
+				var secondaryMap = document.getElementById("secondaryBox");
+				var secondaryStats = [8.04, 2.54, 3.06, 3.99, 12.51, 2.30, 1.96, 5.49, 7.26, 0.16, 0.67, 4.14, 2.53, 7.09, 7.60, 2.00, 0.11, 6.12, 6.54, 9.25, 2.71, 0.99, 1.92, 0.19, 1.73, 0.09];
+				createStatMap(secondaryMap, secondaryStats);
+			}
+			
+			function createStatMap(map, stats) {
+				// Each stat row contains 4 columns
+				// Cycle A-Z and places the corresponding number from stats into the column
+				var statistics = '<div class="row">';
+				for (var i=0; i< 26; i++) {
+					var currentStat = stats[i]
+					statistics += '<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><b>'+alphabet.charAt(i)+'</b> : ' + stats[i].toFixed(2) + "%</div>";
+					if (i % 4 == 3) {
+						statistics +='</div><div class="row">';
+					}
+				}
+				map.innerHTML = statistics;
+			}
+
+			function updateOutput() {
+				// This function is called when a change is made to a input box
+				// It changes the contents of the decoded text based on changes made
+				// To all of the text boxes.
+				var text = document.getElementById("encoded").innerHTML;
+				for (var i=0; i < 26; i++) {
+					if (document.getElementById(alphabet.charAt(i)).value != "") {
+						document.getElementById(alphabet.charAt(i)).value = document.getElementById(alphabet.charAt(i)).value.charAt(0).toLowerCase();
+						text = text.replace(new RegExp(alphabet.charAt(i), 'g'), '<span class="decoded-letter">' +  document.getElementById(alphabet.charAt(i)).value + '</span>');
+					}
+				}
+				document.getElementById("decoded").innerHTML = text;
+			}
+		</script>
+
+		<div class="row">
+			<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 monospace" id="encoded" valign="top">
+				<!--Contents filled by generate() function-->
+			</div>
+			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 monospace">
+						A : <input type="text" id="A" maxlenth="1" size=2 oninput="updateOutput();"/><br>
+						B : <input type="text" id="B" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						C : <input type="text" id="C" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						D : <input type="text" id="D" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						E : <input type="text" id="E" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						F : <input type="text" id="F" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						G : <input type="text" id="G" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						H : <input type="text" id="H" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						I : <input type="text" id="I" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						J : <input type="text" id="J" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						K : <input type="text" id="K" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						L : <input type="text" id="L" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						M : <input type="text" id="M" maxlenth="1" size=2 oninput="updateOutput();"/>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 monospace">
+						N : <input type="text" id="N" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						O : <input type="text" id="O" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						P : <input type="text" id="P" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						Q : <input type="text" id="Q" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						R : <input type="text" id="R" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						S : <input type="text" id="S" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						T : <input type="text" id="T" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						U : <input type="text" id="U" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						V : <input type="text" id="V" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						W : <input type="text" id="W" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						X : <input type="text" id="X" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						Y : <input type="text" id="Y" maxlenth="1" size=2 oninput="updateOutput();"/><br/>
+						Z : <input type="text" id="Z" maxlenth="1" size=2 oninput="updateOutput();"/>	
+				</div>
+			</div>
+			<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 monospace" id="decoded" valign="top">
+				<!--Contents filled by generate() function and updated by updateOutput() function-->
+			</div>
+		</div>
+		<div class="row centered">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 centered">
+					<h3>Frequency Distribution of Ciphertext</h3>
+					<div id="statisticsBox">
+						<!--Contents filled by generate() function-->
+					</div>
+			</div>
+			
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<!--Buffer for formatting purposes-->
+				&nbsp;
+			</div>
+			
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 centered">
+				<h3>Frequency Distribution of English</h3>
+				<div id="secondaryBox">
+					<!--Contents filled by generate() function-->
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+			<hr>
+				<p>
+					A joint project of Brendan Bard, Prof. Gregory Bard, and Prof. Seth Dutter, University of Wisconsin---Stout (January 30th, 2019)
+				</p>
+			<hr>
+		</div>
+	</div>
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl502892'},{'dcenter':'p3'},{'cp_id':'2342172'},{'cp_cache':''},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>
